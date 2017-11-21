@@ -96,5 +96,5 @@ sed -i 's/-Dnl80211,wext/-Dwext/g' /volumio/app/plugins/system_controller/networ
 sed -i 's/eth0/wlan0/g' /volumio/app/plugins/system_controller/system/index.js
 
 #change op_mode parameter of bcmdhd and restart
-sed -i '/echo "Launching Ordinary Hostapd"/a#change bcmdhd.op_mode and restart \necho 2 > /sys/module/bcmdhd/parameters/op_mode\nrfkill block wifi\nrfkill unblock wifi' /bin/hotspot.sh
-sed -i "/\/usr\/bin\/sudo \/usr\/bin\/killall dhcpd/a#change bcmdhd.op_mode and restart\necho 0 > /sys/module/bcmdhd/parameters/op_mode\nrfkill block wifi\nrfkill unblock wifi" /bin/hotspot.sh
+sed -i '/echo "Launching Ordinary Hostapd"/a#change bcmdhd.op_mode and restart \necho 2 > /sys/module/bcmdhd/parameters/op_mode\nifconfig wlan0 down\nsleep 1\nifconfig wlan0 up' /bin/hotspot.sh
+sed -i "/\/usr\/bin\/sudo \/usr\/bin\/killall dhcpd/a#change bcmdhd.op_mode and restart\necho 0 > /sys/module/bcmdhd/parameters/op_mode\nifconfig wlan0 down\nsleep 1\nifconfig wlan0 up" /bin/hotspot.sh
